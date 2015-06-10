@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Histogram</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
+    <style>
+
+        @media (min-width: 760px) {
+            #hero-hist {
+                height: 500px;
+            }
+        }
+
+        @media (min-width: 400px) {
+            #hero-hist {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 399px) {
+            #hero-hist {
+                height: 200px;
+            }
+        }
+
+        #histogram, #histogram2 {
+            height: 300px;
+        }
+
+        #histogram text.value, #histogram2 text.value {
+            font: 10px "verdana";
+        }
+
+        .axis {
+            font: 10px "verdana";
+        }
+
+        .axis path,
+        .axis line {
+            fill: none;
+            stroke: #000;
+            shape-rendering: crispEdges;
+        }
+
+        .x.axis path {
+            display: none;
+        }
+
+        .mini-example {
+            height: 200px;
+        }
+
+    </style>
+</head>
+<body>
+<script type="text/javascript" src="js/lib/jquery.min.js"></script>
+<script type="text/javascript" src="js/lib/jquery-ui.min.js"></script>
+<script type="text/javascript" src="js/lib/d3.min.js"></script>
+<script type="text/javascript" src="./js/histogram.js"></script>
+<script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<div class="container">
+    <div class="jumbotron">
+        <h1>Responsive Bar Charts</h1>
+
+        <div id="hero-hist" class="example"></div>
+        <div>
+            <button id="histogram-update-btn" type="button" class="btn btn-lg btn-primary">Update</button>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title">Important Sales Stuff</div>
+                </div>
+                <div class="panel-body">
+                    <div id="histogram" class="example"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title">Things and Stuff</div>
+                </div>
+                <div class="panel-body">
+                    <div id="histogram2" class="example"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div id="mini-hist-1" class="mini-example"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div id="mini-hist-2" class="mini-example"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div id="mini-hist-3" class="mini-example"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div id="mini-hist-4" class="mini-example"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script type="text/javascript">
+    "use strict";
+
+    function genData() {
+        var result = [];
+        for (var i = 0; i < parseInt(Math.random() * 10) + 3; i++) {
+            result.push({
+                label: i,
+                value: parseInt(Math.random() * 10000)
+            });
+        }
+        return result
+    }
+
+    var heroHist = $("#hero-hist").histogram({
+        data: genData(),
+        yAxisLabel: "Awesomeness",
+//        colorFunction: function () {
+//            return "#428bca"
+//        }
+    });
+
+    var graphs = [heroHist];
+    var selectors = ["#histogram", "#histogram2", "#mini-hist-1", "#mini-hist-2", "#mini-hist-3", "#mini-hist-4"];
+    for (var i = 0; i < selectors.length; i++) {
+        var container = $(selectors[i]).histogram({
+            data: genData(),
+            yAxisLabel: "Some Scale",
+            showValues: false
+            // mouseover: function(bar) {},
+            // mouseout: function(bar) {},
+        });
+
+        graphs.push(container);
+    }
+
+    $("#histogram-update-btn").on("click", function () {
+        for (var i = 0; i < graphs.length; i++) {
+            graphs[i].histogram("update", genData());
+        }
+    });
+
+</script>
+</body>
+</html>

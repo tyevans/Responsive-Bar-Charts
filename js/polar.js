@@ -139,7 +139,7 @@ $.widget("tyevans.polar", {
 
         var color = d3.scale.linear()
             .domain([0, maxVal *.33, maxVal *.66, maxVal])
-            .range(["#fff", "#2CA02C", "#FF7F0E", "#D62728"]);
+            .range(["#fff", "#2CA02C", "#FFAF00", "#D62728"]);
 
         $.each(data, function (index, values) {
             var innerRadius = segmentWidth * index;

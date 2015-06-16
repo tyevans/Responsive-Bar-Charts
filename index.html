@@ -51,6 +51,10 @@
             height: 200px;
         }
 
+        .large-example {
+            height: 400px;
+        }
+
     </style>
 </head>
 <body>
@@ -58,18 +62,29 @@
 <script type="text/javascript" src="js/lib/jquery-ui.min.js"></script>
 <script type="text/javascript" src="js/lib/d3.min.js"></script>
 <script type="text/javascript" src="./js/histogram.js"></script>
+<script type="text/javascript" src="./js/polar.js"></script>
 <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
 <div class="container">
     <div class="jumbotron">
-        <h1>Responsive Bar Charts</h1>
+        <h1>Responsive Charts</h1>
 
         <div id="hero-hist" class="example"></div>
         <div>
             <button id="histogram-update-btn" type="button" class="btn btn-lg btn-primary">Update</button>
         </div>
-
     </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div id="polar-1" class="large-example"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-md-6">
             <div class="panel panel-default">
@@ -93,6 +108,7 @@
             </div>
         </div>
     </div>
+
     <div class="row">
         <div class="col-md-3">
             <div class="panel panel-default">
@@ -128,7 +144,7 @@
 <script type="text/javascript">
     "use strict";
 
-    function genData() {
+    function genBarData() {
         var result = [];
         for (var i = 0; i < parseInt(Math.random() * 10) + 3; i++) {
             result.push({
@@ -139,8 +155,35 @@
         return result
     }
 
+    function randInt(n) {
+        n = n || 16;
+        return parseInt(Math.random() * n);
+    }
+
+    function genPolarData() {
+        return {
+            "W": [randInt(), randInt(), randInt(), randInt()],
+            "WNW": [randInt(), randInt(), randInt(), randInt()],
+            "NW": [randInt(), randInt(), randInt(), randInt()],
+            "NNW": [randInt(), randInt(), randInt(), randInt()],
+            "N": [randInt(), randInt(), randInt(), randInt()],
+            "NNE": [randInt(), randInt(), randInt()],
+            "NE": [randInt(), randInt(), randInt()],
+            "ENE": [randInt(), randInt(), randInt()],
+            "E": [randInt(), randInt(), randInt()],
+            "ESE": [randInt(), randInt(), randInt()],
+            "SE": [randInt(), randInt(), randInt()],
+            "SSE": [randInt(), randInt(), randInt()],
+            "S": [randInt(), randInt(), randInt()],
+            "SSW": [randInt(), randInt(), randInt()],
+            "SW": [randInt(), randInt(), randInt()],
+            "WSW": [randInt(), randInt(), randInt()]
+        }
+
+    }
+
     var heroHist = $("#hero-hist").histogram({
-        data: genData(),
+        data: genBarData(),
         yAxisLabel: "Awesomeness",
 //        colorFunction: function () {
 //            return "#428bca"
@@ -151,7 +194,7 @@
     var selectors = ["#histogram", "#histogram2", "#mini-hist-1", "#mini-hist-2", "#mini-hist-3", "#mini-hist-4"];
     for (var i = 0; i < selectors.length; i++) {
         var container = $(selectors[i]).histogram({
-            data: genData(),
+            data: genBarData(),
             yAxisLabel: "Some Scale",
             showValues: false
             // mouseover: function(bar) {},
@@ -161,11 +204,20 @@
         graphs.push(container);
     }
 
+    $("#polar-1").polar({
+        backgroundColor: "#f8f8f8",
+//        backgroundStroke: "#999",
+        data: {"NNE":[967,2916,2932,3246,3117],"NE":[679,1910,1252,1493,1430],"ENE":[384,2243,2131,1292,3096],"E":[278,794,961,1331,2502],"ESE":[201,390,412,497,193],"SE":[56,133,189,392,576],"SSE":[21,5,56,117,164],"S":[18,22,4,105,300],"SSW":[18,83,89,71,421],"SW":[54,429,522,443,727],"WSW":[122,62,0,0,0],"W":[136,8,0,0,0],"WNW":[155,2,0,0,0],"NW":[330,10,0,0,0],"NNW":[997,1483,0,0,0],"N":[1815,4972,1037,797,137]}
+    });
+
     $("#histogram-update-btn").on("click", function () {
         for (var i = 0; i < graphs.length; i++) {
-            graphs[i].histogram("update", genData());
+            graphs[i].histogram("update", genBarData());
         }
+
+        $("#polar-1").polar("update", genPolarData());
     });
+
 
 </script>
 </body>

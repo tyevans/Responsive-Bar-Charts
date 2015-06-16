@@ -47,7 +47,6 @@ $.widget("tyevans.histogram", {
     },
 
     _resize: function () {
-        console.log("resize");
         this._set_dimensions();
         this._svg
             .attr("width", this.options.width)

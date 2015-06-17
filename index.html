@@ -75,13 +75,19 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div id="polar-1" class="large-example"></div>
                 </div>
             </div>
-
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div id="polar-2" class="large-example"></div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -204,11 +210,17 @@
         graphs.push(container);
     }
 
+    var polarData = {"NNE":[967,2916,2932,3246,3117],"NE":[679,1910,1252,1493,1430],"ENE":[384,2243,2131,1292,3096],"E":[278,794,961,1331,2502],"ESE":[201,390,412,497,193],"SE":[56,133,189,392,576],"SSE":[21,5,56,117,164],"S":[18,22,4,105,300],"SSW":[18,83,89,71,421],"SW":[54,429,522,443,727],"WSW":[122,62,0,0,0],"W":[136,8,0,0,0],"WNW":[155,2,0,0,0],"NW":[330,10,0,0,0],"NNW":[997,1483,0,0,0],"N":[1815,4972,1037,797,137]};
+
     $("#polar-1").polar({
         backgroundColor: "#f8f8f8",
-//        backgroundStroke: "#999",
-        data: {"NNE":[967,2916,2932,3246,3117],"NE":[679,1910,1252,1493,1430],"ENE":[384,2243,2131,1292,3096],"E":[278,794,961,1331,2502],"ESE":[201,390,412,497,193],"SE":[56,133,189,392,576],"SSE":[21,5,56,117,164],"S":[18,22,4,105,300],"SSW":[18,83,89,71,421],"SW":[54,429,522,443,727],"WSW":[122,62,0,0,0],"W":[136,8,0,0,0],"WNW":[155,2,0,0,0],"NW":[330,10,0,0,0],"NNW":[997,1483,0,0,0],"N":[1815,4972,1037,797,137]}
+        data: polarData
     });
+    $("#polar-2").polar({
+        backgroundColor: "#fff",
+        data: polarData
+    });
+
 
     $("#histogram-update-btn").on("click", function () {
         for (var i = 0; i < graphs.length; i++) {
@@ -216,6 +228,7 @@
         }
 
         $("#polar-1").polar("update", genPolarData());
+        $("#polar-2").polar("update", genPolarData());
     });
 
 

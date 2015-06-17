@@ -26,7 +26,7 @@ $.widget("tyevans.histogram", {
         this._set_dimensions();
 
         this._svg = d3.select(this.selector).append("svg")
-            .classed({"container": true})
+            .classed({"chart-container": true})
             .attr("width", this.options.width)
             .attr("height", this.options.height);
 
